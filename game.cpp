@@ -3,6 +3,14 @@
 Game::Game(sf::RenderWindow* w) {
     window = w;
 
+    world.set_player(&player);
+
+    world.add(&rect);
+
+    //circle = sf::CircleShape(50.f);
+    //circle.setFillColor(sf::Color::Green);
+    //circle.setPosition(sf::Vector2f(0, 0));
+
     view_center = player.get_center();
     view_size = sf::Vector2f(window->getSize().x, window->getSize().y);
     view = sf::View(view_center, view_size);
@@ -34,12 +42,16 @@ void Game::events() {
 }
 
 void Game::update() {
-    player.update(target_update_time.asSeconds(), &view);
+    world.update(target_update_time.asSeconds());
+    player.update(target_update_time.asSeconds());
+    view.setCenter(player.get_center());
 }
 
 void Game::draw() {
     window->clear(sf::Color::Black);
         window->setView(view);
+        //window->draw(circle);
+        rect.draw(window);
         player.draw(window);
     window->display();
 }

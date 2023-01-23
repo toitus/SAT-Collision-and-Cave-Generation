@@ -27,7 +27,8 @@ class Game {
         sf::Time time_since_last_update = sf::Time::Zero;
         sf::Time target_update_time = sf::seconds(1.f/60.f);
 
-        //sf::CircleShape circle;
+        bool w, a, s, d;
+        void player_movement();
 
         void events();
         void update();

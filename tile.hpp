@@ -4,13 +4,10 @@
 #include <iostream>
 #include "sprite.hpp"
 
-class Player : public Sprite {
+class Tile : public Sprite {
     public:
-        Player();
+        Tile();
 
         void update(float dt);
         void draw(sf::RenderWindow* w);
-    private:
-        void movement(float dt);
-
 };

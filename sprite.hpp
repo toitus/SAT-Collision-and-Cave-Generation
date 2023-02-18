@@ -4,7 +4,8 @@
 
 class Sprite {
     public:
-        void set_position(sf::Vector2f p) { sprite.setPosition(p); }
+        void move(sf::Vector2f offset) { sprite.move(offset); }
+        void position(sf::Vector2f position) { sprite.setPosition(position); }
 
         sf::Vector2f center() { return sprite.getPosition() + size/2.f; }
         float left() { return sprite.getPosition().x; }
@@ -16,4 +17,5 @@ class Sprite {
         sf::Texture texture;
         sf::Sprite sprite; 
         sf::Vector2f size;
+        int priority;
 };

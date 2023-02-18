@@ -9,5 +9,5 @@ class Tile : public Sprite {
         Tile();
 
         void update(float dt);
-        void draw(sf::RenderWindow* w);
+        void draw(sf::RenderWindow& window);
 };

@@ -7,10 +7,8 @@ class World {
     public:
         World();
 
-        sf::Vector2f player_center() { return player.center(); }
-
-        void update(float dt);
-        void draw(sf::RenderWindow* w);
+        void update(float dt, sf::View& view);
+        void draw(sf::RenderWindow& window);
 
     private:
 

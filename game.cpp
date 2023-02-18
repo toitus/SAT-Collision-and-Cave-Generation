@@ -1,18 +1,17 @@
 #include "game.hpp"
 
-Game::Game(sf::RenderWindow* w) {
-    window = w;
-
-    view = sf::View(world.player_center(), sf::Vector2f(window->getSize().x, window->getSize().y));
+Game::Game() {
+    window.create(sf::VideoMode(1280, 720, sf::VideoMode::getDesktopMode().bitsPerPixel), "SAT");
+    view = sf::View(sf::Vector2f(16, 16), sf::Vector2f(window.getSize().x, window.getSize().y));
 }
 
 void Game::run() {
-    while (window->isOpen()) {
+    while (window.isOpen()) {
         events();
-        time_since_last_update += update_clock.restart();
-        while (time_since_last_update >= target_update_time) {
-            time_since_last_update -= target_update_time;
-            if (window->hasFocus()) {
+        timeSinceLastUpdate += updateClock.restart();
+        while (timeSinceLastUpdate >= targetUpdateTime) {
+            timeSinceLastUpdate -= targetUpdateTime;
+            if (window.hasFocus()) {
                 update();
             }
         }
@@ -21,24 +20,23 @@ void Game::run() {
 }
 
 void Game::events() {
-    while (window->pollEvent(event)) {
-        if (event.type == sf::Event::Closed) { window->close(); }
+    while (window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed) { window.close(); }
 
         if (event.type == sf::Event::Resized) {
             view.setSize(event.size.width, event.size.height);
-            window->setView(view);
+            window.setView(view);
         }
     }
 }
 
 void Game::update() {
-    world.update(target_update_time.asSeconds());
-    view.setCenter(world.player_center());
+    world.update(targetUpdateTime.asSeconds(), view);
 }
 
 void Game::draw() {
-    window->clear(sf::Color::Black);
-        window->setView(view);
+    window.clear(sf::Color::Black);
+        window.setView(view);
         world.draw(window);
-    window->display();
+    window.display();
 }

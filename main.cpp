@@ -4,8 +4,7 @@
 #include "game.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(1280, 720, sf::VideoMode::getDesktopMode().bitsPerPixel), "SAT");
-    Game game(&window);
+    Game game;
     game.run();
     return 0;
 }

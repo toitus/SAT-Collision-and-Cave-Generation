@@ -9,7 +9,7 @@ class Player : public Sprite {
         Player();
 
         void update(float dt);
-        void draw(sf::RenderWindow* w);
+        void draw(sf::RenderWindow& window);
     private:
         void movement(float dt);
 

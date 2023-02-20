@@ -4,9 +4,9 @@ World::World() {
     a.position(sf::Vector2f(50, 70));
     b.position(sf::Vector2f(50, 115));
 
-    entities.push_back(&player);
     entities.push_back(&a);
     entities.push_back(&b);
+    entities.push_back(&player);
 }
 
 void World::update(float dt, sf::View& view) {
@@ -90,6 +90,7 @@ bool World::checkCollision(Sprite* a, Sprite* b) {
     if (a->getType() < b->getType()) {
         a->move(mtv);
     } else if (b->getType() < a->getType()) {
+        mtv *= -1.f; //if b is to be resolved, the resolution vector needs to be in the opposite direction
         b->move(mtv);
     }
 

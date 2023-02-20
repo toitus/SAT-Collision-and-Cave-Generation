@@ -6,6 +6,7 @@ Player::Player() {
         texture.setSmooth(true);
         sprite.setTexture(texture);
         sprite.setPosition(0, 0);
+        type = 1;
     } else {
         std::cout << "failed to load 'content/player.png'" << std::endl;
     }

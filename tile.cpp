@@ -6,6 +6,7 @@ Tile::Tile() {
         texture.setSmooth(true);
         sprite.setTexture(texture);
         sprite.setPosition(0, 0);
+        type = 3;
     } else {
         std::cout << "failed to load 'content/tile.png'" << std::endl;
     }

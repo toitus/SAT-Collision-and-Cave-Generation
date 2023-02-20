@@ -12,10 +12,11 @@ class Sprite {
         float right() { return sprite.getPosition().x + size.x; }
         float top() { return sprite.getPosition().y; }
         float bottom() { return sprite.getPosition().y + size.y; }
+        int getType() { return type; }
 
     protected:
         sf::Texture texture;
         sf::Sprite sprite; 
         sf::Vector2f size;
-        int priority;
+        int type; //collision priority: lower values get moved in resolution
 };

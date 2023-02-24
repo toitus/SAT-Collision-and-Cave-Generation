@@ -3,10 +3,9 @@
 Player::Player() {
     if (texture.loadFromFile("content/player.png")) {
         size = sf::Vector2f(texture.getSize().x, texture.getSize().y);
-        texture.setSmooth(true);
         sprite.setTexture(texture);
         sprite.setPosition(0, 0);
-        type = 1;
+        type = "player";
     } else {
         std::cout << "failed to load 'content/player.png'" << std::endl;
     }

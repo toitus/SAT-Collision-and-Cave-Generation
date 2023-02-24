@@ -6,8 +6,9 @@
 
 class Tile : public Sprite {
     public:
-        Tile();
+        int cavern;
 
-        void update(float dt);
-        void draw(sf::RenderWindow& window);
+        void draw(sf::RenderWindow& window) {
+            window.draw(sprite);
+        }
 };

@@ -12,5 +12,6 @@ class Player : public Sprite {
         void draw(sf::RenderWindow& window);
     private:
         void movement(float dt);
+        sf::Texture texture;
 
 };

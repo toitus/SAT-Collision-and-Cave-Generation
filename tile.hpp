@@ -7,7 +7,7 @@
 class Tile : public Sprite {
     public:
         int cavern;
-
+        bool removable = true;
         void draw(sf::RenderWindow& window) {
             window.draw(sprite);
         }

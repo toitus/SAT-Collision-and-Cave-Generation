@@ -56,18 +56,21 @@ void Tilemap::generate() {
         for (int column = 0; column < width; ++column) {
             if (current[row][column] == 0) {
                 tiles[row][column].setTextureRect(floor);
-                tiles[row][column].setType("floor");
+                tiles[row][column].setType("walkable");
                 tiles[row][column].cavern = 0;
             } else if (current[row][column] == 1) {
                 tiles[row][column].setTextureRect(wall);
-                tiles[row][column].setType("wall");
+                tiles[row][column].setType("static");
                 tiles[row][column].cavern = -1;
+                if (row == 0 || row == height-1 || column == 0 || column == width-1) {
+                    tiles[row][column].removable = false;
+                }
             }
         }
     }
 
-    for (int row = 0; row < height; ++row) {
-        for (int column = 0; column < width; ++column) {
+    for (int row = 1; row < height-1; ++row) {
+        for (int column = 1; column < width-1; ++column) {
             if (tiles[row][column].cavern == 0) {
                 caverns.push_back(flood(sf::Vector2i(row, column)));
             }
@@ -97,4 +100,15 @@ std::vector<sf::Vector2i> Tilemap::flood(sf::Vector2i root) {
         }
     }
     return cavern;
+}
+
+sf::Vector2f Tilemap::getRandomEmptyTilePosition() {
+    int largest = 0;
+    for (int i = 1; i < caverns.size(); ++i) {
+        if (caverns[i].size() > caverns[largest].size()) {
+            largest = i;
+        }
+    }
+    int tile = std::rand() % caverns[largest].size();
+    return sf::Vector2f(caverns[largest][tile].y*tilesize, caverns[largest][tile].x*tilesize);
 }

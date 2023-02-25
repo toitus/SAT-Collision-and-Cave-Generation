@@ -14,6 +14,13 @@ class Tilemap {
         void draw(sf::RenderWindow& window);
 
         void generate();
+        int rows() { return height; }
+        int columns() { return width; }
+        int getTilesize() { return tilesize; }
+
+        Tile getTile(int row, int column) { return tiles[row][column]; }
+
+        sf::Vector2f getRandomEmptyTilePosition();
 
     private:
 
@@ -21,12 +28,12 @@ class Tilemap {
 
         sf::Texture tilesheet;
 
-        sf::IntRect floor = sf::IntRect(0, 0, 32, 32);
-        sf::IntRect wall = sf::IntRect(32, 0, 32, 32);
+        int tilesize = 48;
+        int width = 20;
+        int height = 20;
 
-        int tilesize = 32;
-        int width = 60;
-        int height = 60;
+        sf::IntRect floor = sf::IntRect(0, 0, tilesize, tilesize);
+        sf::IntRect wall = sf::IntRect(tilesize, 0, tilesize, tilesize);
 
         std::vector<std::vector<sf::Vector2i>> caverns;
 

@@ -1,13 +1,22 @@
 #include "world.hpp"
 
 World::World() {
-    player.position(sf::Vector2f(0, 0));
+    if (boxtexture.loadFromFile("content/player.png")) {
+        box.setTexture(&boxtexture);
+        box.setType("dynamic");
+    }
+    entities.push_back(&box);
 }
 
 void World::events(sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Space) {
             map.generate();
+            player.position(map.getRandomEmptyTilePosition());
+            box.position(map.getRandomEmptyTilePosition());
+        }
+        if (event.key.code == sf::Keyboard::P) {
+            checkCollisions();
         }
     }
 }
@@ -29,11 +38,17 @@ void World::update(float dt, sf::View& view) {
 
 void World::draw(sf::RenderWindow& window) {
     map.draw(window);
+    box.draw(window);
     player.draw(window);
 }
 
 void World::checkCollisions() {
+    for (int e = 0; e < entities.size(); ++e) {
+        int row = static_cast<int>(entities[e]->center().y / map.getTilesize());
+        int column = static_cast<int>(entities[e]->center().x / map.getTilesize());
 
+    }
+    std::cout << "row: " << static_cast<int>(player.center().y / map.getTilesize()) << " column: " << static_cast<int>(player.center().x / map.getTilesize()) << std::endl;
 }
 
 /*void World::resolveCollisions() {

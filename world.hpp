@@ -22,6 +22,9 @@ class World {
 
         Tilemap map;
 
+        Tile box;
+        sf::Texture boxtexture;
+
         std::vector<Sprite*> entities;
 
         std::vector<sf::Vector2f> separatingAxes = std::vector<sf::Vector2f> {

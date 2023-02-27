@@ -18,7 +18,7 @@ class Tilemap {
         int columns() { return width; }
         int getTilesize() { return tilesize; }
 
-        Tile getTile(int row, int column) { return tiles[row][column]; }
+        Tile* getTile(int row, int column) { return &tiles[row][column]; }
 
         sf::Vector2f getRandomEmptyTilePosition();
 
@@ -29,8 +29,8 @@ class Tilemap {
         sf::Texture tilesheet;
 
         int tilesize = 48;
-        int width = 20;
-        int height = 20;
+        int width = 80;
+        int height = 80;
 
         sf::IntRect floor = sf::IntRect(0, 0, tilesize, tilesize);
         sf::IntRect wall = sf::IntRect(tilesize, 0, tilesize, tilesize);

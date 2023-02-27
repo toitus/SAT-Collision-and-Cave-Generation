@@ -6,6 +6,7 @@ Tilemap::Tilemap() {
         for (int row = 0; row < height; ++row) {
             for (int column = 0; column < width; ++column) {
                 tiles[row][column].setTexture(&tilesheet);
+                tiles[row][column].setSize(sf::Vector2f(tilesize, tilesize));
                 tiles[row][column].position(sf::Vector2f(column*tilesize, row*tilesize));
             }
         }

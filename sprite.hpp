@@ -18,6 +18,7 @@ class Sprite {
         float top() { return sprite.getPosition().y; }
         float bottom() { return sprite.getPosition().y + size.y; }
         sf::FloatRect bounds() { return sprite.getGlobalBounds(); }
+        void setSize(sf::Vector2f s) { size = s; }
         
         void setType(std::string t) { type = t; }
         std::string getType() { return type; }

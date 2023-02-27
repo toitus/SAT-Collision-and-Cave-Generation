@@ -74,6 +74,7 @@ void World::checkCollisions() {
     //and push back along static axis if collisions exist
 
     //todo bug: here when moving diagonally along a wall, player will collide into tile in their corner
+    //may need to revise the order of resolutions here
     for (int i = 0; i < entities.size(); ++i) {
         int row = static_cast<int>(entities[i]->center().y / map.getTilesize());
         int column = static_cast<int>(entities[i]->center().x / map.getTilesize());

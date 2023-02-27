@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <cmath>
 #include "sprite.hpp"
 
 class Player : public Sprite {
@@ -13,5 +14,4 @@ class Player : public Sprite {
     private:
         void movement(float dt);
         sf::Texture texture;
-
 };

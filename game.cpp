@@ -28,15 +28,13 @@ void Game::events() {
             window.setView(view);
         }
 
-        if (event.type == sf::Event::MouseWheelMoved) {
-            sf::Vector2u size = window.getSize();
-            view.setSize(size.x, size.y);
-            zoom -= 0.25f * event.mouseWheel.delta;
-            if (zoom < 1.25f) zoom = 1.25f;
-            view.zoom(zoom);
+        if (event.type == sf::Event::MouseWheelScrolled) {
+            if (event.mouseWheelScroll.delta > 0 && zoomedOut) { view.zoom(1.f/zoom); zoomedOut = !zoomedOut; } 
+            else if (event.mouseWheelScroll.delta < 0 && !zoomedOut) { view.zoom(zoom); zoomedOut = !zoomedOut; }
         }
-        
+
         world.events(event);
+        
     }
 }
 

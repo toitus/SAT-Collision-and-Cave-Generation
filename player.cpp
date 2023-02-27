@@ -25,9 +25,11 @@ void Player::movement(float dt) {
     bool s = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
     bool d = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
 
-    float speed = 200.f * dt;
+    float speed = 250.f * dt;
 
-    if ((w && a) || (w && d) || (s && a) || (s && d)) { speed *= 0.707; } 
+    if ((w && a) || (w && d) || (s && a) || (s && d)) { speed *= 0.725; } 
+
+    speed = std::floor(speed);
 
     sf::Vector2f offset = sf::Vector2f(0, 0);
 

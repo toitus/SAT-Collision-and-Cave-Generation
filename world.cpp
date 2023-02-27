@@ -45,10 +45,10 @@ void World::update(float dt, sf::View& view) {
     sf::Vector2f current = view.getCenter();
     sf::Vector2f difference = target - current;
     float speed = 2.5f;
-    sf::Vector2f offset = sf::Vector2f(difference.x * dt * speed, difference.y * dt * speed);
+    sf::Vector2f offset = sf::Vector2f(difference.x, difference.y);
     if (offset.x < 0.3f && offset.x > -0.3f) offset.x = 0.f;
     if (offset.y < 0.3f && offset.y > -0.3f) offset.y = 0.f;
-    view.move(offset);
+    view.setCenter(current+offset);
     //* 
 }
 
@@ -61,7 +61,8 @@ void World::draw(sf::RenderWindow& window) {
 }
 
 void World::checkCollisions() {
-    //push along player axis if collisions exist
+    //push dyamics along player axis if collisions exist
+    //player is at location 0 in entities vector
     for (int i = 1; i < entities.size(); ++i) {
         sf::Vector2f mtv = getMTV(entities[i], entities[0]);
         if (mtv != sf::Vector2f(0, 0)) {
@@ -70,14 +71,31 @@ void World::checkCollisions() {
         }
     }
 
-    //determine which dynamics collide against tiles
+    //determine which dynamics collide against static tiles
     //and push back along static axis if collisions exist
-
-    //todo bug: here when moving diagonally along a wall, player will collide into tile in their corner
-    //may need to revise the order of resolutions here
     for (int i = 0; i < entities.size(); ++i) {
         int row = static_cast<int>(entities[i]->center().y / map.getTilesize());
         int column = static_cast<int>(entities[i]->center().x / map.getTilesize());
+
+        if (map.getTile(row-1, column)->getType() == "static") {
+            sf::Vector2f top = getMTV(entities[i], map.getTile(row-1, column));
+            if (top != sf::Vector2f(0, 0)) { entities[i]->move(top); resolveCollisions(entities[i]); }
+        }
+
+        if (map.getTile(row+1, column)->getType() == "static") {
+            sf::Vector2f bottom = getMTV(entities[i], map.getTile(row+1, column));
+            if (bottom != sf::Vector2f(0, 0)) { entities[i]->move(bottom); resolveCollisions(entities[i]); }
+        }
+
+        if (map.getTile(row, column-1)->getType() == "static") {
+            sf::Vector2f left = getMTV(entities[i], map.getTile(row, column-1));
+            if (left != sf::Vector2f(0, 0)) { entities[i]->move(left); resolveCollisions(entities[i]); }
+        }
+
+        if (map.getTile(row, column+1)->getType() == "static") {
+            sf::Vector2f right = getMTV(entities[i], map.getTile(row, column+1));
+            if (right != sf::Vector2f(0, 0)) { entities[i]->move(right); resolveCollisions(entities[i]); }
+        }
 
         if (map.getTile(row-1, column-1)->getType() == "static") {
             sf::Vector2f topleft = getMTV(entities[i], map.getTile(row-1, column-1));
@@ -98,29 +116,10 @@ void World::checkCollisions() {
             sf::Vector2f bottomright = getMTV(entities[i], map.getTile(row+1, column+1));
             if (bottomright != sf::Vector2f(0, 0)) { entities[i]->move(bottomright); resolveCollisions(entities[i]); }
         }
-
-        if (map.getTile(row, column-1)->getType() == "static") {
-            sf::Vector2f left = getMTV(entities[i], map.getTile(row, column-1));
-            if (left != sf::Vector2f(0, 0)) { entities[i]->move(left); resolveCollisions(entities[i]); }
-        }
-
-        if (map.getTile(row, column+1)->getType() == "static") {
-            sf::Vector2f right = getMTV(entities[i], map.getTile(row, column+1));
-            if (right != sf::Vector2f(0, 0)) { entities[i]->move(right); resolveCollisions(entities[i]); }
-        }
-
-        if (map.getTile(row-1, column)->getType() == "static") {
-            sf::Vector2f top = getMTV(entities[i], map.getTile(row-1, column));
-            if (top != sf::Vector2f(0, 0)) { entities[i]->move(top); resolveCollisions(entities[i]); }
-        }
-
-        if (map.getTile(row+1, column)->getType() == "static") {
-            sf::Vector2f bottom = getMTV(entities[i], map.getTile(row+1, column));
-            if (bottom != sf::Vector2f(0, 0)) { entities[i]->move(bottom); resolveCollisions(entities[i]); }
-        }
     }
 }
 
+//recursively resolve a collision chain at root s
 void World::resolveCollisions(Sprite* s) {
     for (int i = 0; i < entities.size(); ++i) {
         if (entities[i] != s) {

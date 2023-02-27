@@ -11,6 +11,7 @@
 class World {
     public:
         World();
+        sf::Vector2i center() { return sf::Vector2i(player.center().x, player.center().y); }
 
         void events(sf::Event& event);
         void update(float dt, sf::View& view);

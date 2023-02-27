@@ -16,7 +16,8 @@ class Game {
         World world;
 
         sf::View view;
-        float zoom = 1.25f;
+        float zoom = 5.f;
+        bool zoomedOut = false;
 
         sf::Clock updateClock;
         sf::Time timeSinceLastUpdate = sf::Time::Zero;

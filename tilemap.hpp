@@ -29,10 +29,10 @@ class Tilemap {
         sf::Texture tilesheet;
 
         int tilesize = 48;
-        int width = 80;
-        int height = 80;
+        int width = 50;
+        int height = 50;
 
-        sf::IntRect floor = sf::IntRect(0, 0, tilesize, tilesize);
+        sf::IntRect floor = sf::IntRect(0, 0, tilesize, tilesize-1);
         sf::IntRect wall = sf::IntRect(tilesize, 0, tilesize, tilesize);
 
         std::vector<std::vector<sf::Vector2i>> caverns;

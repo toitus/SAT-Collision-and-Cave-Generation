@@ -3,5 +3,5 @@ This is a project that includes the following:
   * Static and Dynamic Bodies in the World, allowing multiple dynamic bodies to be pushed by the player
   * Basic Game Loop and framerate limiting
   * Cellular Automata Cave Generation using Tilemapping
-  * Flood filling the tilemaps to identify the number of unique disconnected caves
+  * Flood filling tilemaps to identify the number of unique disconnected caves
   * Basic player movement with attached camera
